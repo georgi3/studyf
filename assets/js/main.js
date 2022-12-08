@@ -166,20 +166,3 @@ function createNewCourse(){
  closeBtn.onclick = function() {
         modal.style.display = "none";}
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
