@@ -83,5 +83,6 @@ require_once 'includes/ti/ti.php';
 <!--         FOOTER END-->
         <script src="assets/js/main.js"></script>
         <script src="assets/js/assessments.js"></script>
+        <script src="assets/js/explorePage.js"></script>
     </body>
 </html>
