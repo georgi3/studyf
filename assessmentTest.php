@@ -18,13 +18,15 @@ $openedFile = file_get_contents($filePath);
 $arrayAssessmentData = json_decode($openedFile, true);
 
 if (isset($_POST['submitTest'])){
-    header("Location: /soen_proj/studentAssessments.php");
+    header("Location: /soen_proj/studentAssessments?courseCode={$courseCode}.php");
 }
 
 startblock('main');
 ?>
 <div class="assessmentTemplate">
-    <form id="" action="" method="POST" onsubmit="event.preventDefault(); submittedAssessment();">
+    <?php
+    echo "<form method='POST' onsubmit='submittedAssessment(); redirect();'>";
+    ?>
         <div class="templateContent">
             <div class="totalMarks">
                 <!-- To be fetched from db  -->
