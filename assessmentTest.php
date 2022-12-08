@@ -18,7 +18,7 @@ $openedFile = file_get_contents($filePath);
 $arrayAssessmentData = json_decode($openedFile, true);
 
 if (isset($_POST['submitTest'])){
-    header("Location: /soen_proj/studentAssessments?courseCode={$courseCode}.php");
+    header("Location: /soen_proj/studentAssessments.php?courseCode={$courseCode}");
 }
 
 startblock('main');
