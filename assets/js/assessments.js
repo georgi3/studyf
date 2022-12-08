@@ -196,6 +196,7 @@ function writeAssessment(){
         "assessmentTitle": assessmentTitle.textContent,
         "assessmentQuestions": assessmentQuestions
     }
+    // console.log(assessment)
     const response = fetch('/soen_proj/saveCourseAssessment.php', {
         method: "POST",
         headers: {"Content-Type": "application/json"},
@@ -221,3 +222,38 @@ function validateAssessmentForm(){
         return true;
     }
 }
+
+// dealing with test submission
+function submittedAssessment(){
+    const queryUrl = new URLSearchParams(window.location.search);
+    const assessmentId = queryUrl.get('assessmentId');
+    const questionContainer = document.getElementsByClassName("questionContainer");
+    const username = document.getElementById("username").value;
+    let answeredQuestions = [];
+
+    for (let i = 0; i < questionContainer.length; i++) {
+        let questionMarks = getElementByXpath(`/html/body/div[3]/form/div/div[3]/div[1]/div[${i+1}]/div[1]/div[1]/h2/span`);
+        let chosenAnswer = document.querySelector(`input[name='q${i+1}mcq']:checked`);
+        let questionInfo = {
+            "questionNumber": i+1,
+            "questionMarks": questionMarks.textContent,
+            "chosenAnswer": chosenAnswer.value,
+        }
+        answeredQuestions.push(questionInfo);
+    }
+    //
+    let assessment = {
+        "assessmentId": assessmentId,
+        "username": username,
+        "assessmentQuestions": answeredQuestions,
+    }
+    // console.log(assessment)
+    const response = fetch('/soen_proj/checkAssessmentAnswers.php', {
+        method: "POST",
+        headers: {"Content-Type": "application/json"},
+        body: JSON.stringify(assessment),
+    })
+    // window.location.replace(`/soen_proj/studentDashboard.php`);
+    return response
+}
+
