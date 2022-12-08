@@ -78,7 +78,40 @@ class ExistingCourses{
         } else {
             return false;
         }
+    }
 
+    public function getCoursesTags(){
+        $query = $this->conn->prepare("SELECT tags FROM ExistingCourses WHERE private=0;");
+        $query->execute();
+        $fetchedTags = $query->fetchAll();
+        $tagsArr = array_merge(...$fetchedTags);
+        $tags = [];
+        foreach ($tagsArr as $courseTags){
+            array_push($tags, ...explode(',', $courseTags));
+            }
+//        $this->debug_to_console($tags);
+        return $tags;
+    }
+
+    public static function processTags($inputStr){
+        $inputStr = trim($inputStr);
+        return strtolower($inputStr);
+    }
+
+    public function findSearchedCourses($inputString){
+        $query = $this->conn->prepare("SELECT * FROM ExistingCourses WHERE private=0;");
+        $query->execute();
+        $courses = $query->fetchAll();
+        $foundCourses = [];
+        foreach ($courses as $course){
+            foreach (explode(',', $course[3]) as $courseTag){
+                if (levenshtein($inputString, $this->processTags($courseTag)) < 4){
+                    array_push($foundCourses, $course);
+                    break;
+                }
+            }
+        }
+        return $foundCourses;
     }
 }
 // create new json file if not exists (figure out permissions)
