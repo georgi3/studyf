@@ -509,6 +509,9 @@ input[type="number"]{
     overflow-y: auto;
     margin-bottom: 20px;
 }
+.custom-textarea.studentDashboard{
+    cursor: unset!important;
+}
 .custom-textarea:focus{
     outline: none;
     padding: 10px 0;
@@ -524,6 +527,12 @@ input[type="number"]{
     font-family: serif;
     padding-bottom: 20px;
     cursor: pointer;
+}
+.main-section .course-content .titleInput.studentDashboard{ /* Header Input*/
+    font-weight: 300;
+    font-size: 35px;
+    font-family: serif;
+    cursor: unset!important;;
 }
 .main-section .course-content .titleInput:focus{ /* Header Input*/
     outline: none;
@@ -554,6 +563,19 @@ input[type="number"]{
     font-family: serif;
     margin-bottom: 20px;
     cursor: pointer;
+}
+.main-section .course-content .sectionLink.studentDashboard { /* Links Input*/
+    cursor: unset!important;
+    margin: 10px 25px;
+}
+.main-section .course-content .sectionLink.studentDashboard a{ /* Links Input*/
+    text-decoration: none;
+    font-size: 16px;
+    cursor: pointer;
+    color: orange;
+}
+.main-section .course-content .sectionLink.studentDashboard a:hover{ /* Links Input*/
+    color: black;
 }
 .main-section .course-content .linkInput:focus{ /* Header Input*/
     outline: none;
@@ -682,6 +704,11 @@ input[type="number"]{
 }
 .singleAssessment a{
     text-decoration: none;
+    display: flex;
+    padding: 10px 15px;
+    box-shadow: 1px 1px 4px black;
+}
+.singleAssessment p{
     display: flex;
     padding: 10px 15px;
     box-shadow: 1px 1px 4px black;
@@ -907,7 +934,7 @@ input[type="number"]{
     font-size: 25px;
     color: white;
 }
-.searchBar input{
+.searchBarAutoComplete input{
     border: 2px solid orange;
     border-radius: 20px;
     box-shadow: 0 0 50px orange;
@@ -917,12 +944,79 @@ input[type="number"]{
     color: black;
     font-size: 22px;
 }
-.searchBarContainer:focus{
-    background-color: grey;
-}
-.searchBar input:focus{
+.searchBarAutoComplete input:focus{
     outline: none;
 }
+.searchBar button{
+    position: absolute;
+
+    padding: 16px 17px;
+    margin-top: -3.8%;
+    margin-left: 45%;
+    margin-right: 16px;
+    color: white;
+    background-color: black;
+    font-size: 17px;
+    border: none;
+    border-radius: 20px;
+    cursor: pointer;
+}
+.searchBar button:hover{
+    color: orange;
+    background-color: black;
+}
+/*  Autocomplete */
+.autocomplete-items {
+    border: none;
+    z-index: 99;
+    top: 100%;
+    left: 0;
+    right: 0;
+}
+.autocomplete-items div {
+    border-radius: 20px;
+    padding: 10px;
+    cursor: pointer;
+    background-color: #fff;
+}
+.autocomplete-items div:hover {
+    background-color: #e9e9e9;
+}
+.autocomplete-active {
+    background-color: DodgerBlue !important;
+    color: #ffffff;
+}
+/*  Autocomplete End */
+/*  Search Results */
+.searchResults {
+    margin: 5% 50px;
+    box-shadow: 1px 1px 10px black;
+    padding: 20px;
+}
+.searchResults h1{
+    display: flex;
+    justify-content: center;
+    align-content: center;
+}
+.searchResults .enrollInCourse{
+    width: 100%;
+    border: none;
+    padding: 10px 0;
+    border-radius: 5px;
+    background-color: black;
+    color: orange;
+    cursor: pointer;
+}
+.searchResults .alreadyEnrolled{
+    text-align: center;
+    width: 100%;
+    border: none;
+    padding: 9px 0;
+    border-radius: 5px;
+    background-color: grey;
+    color: black;
+}
+/* Search Results */
 .suggestedCoursesContainer{
     margin: 5% 50px;
     box-shadow: 1px 1px 10px black;
@@ -935,18 +1029,17 @@ input[type="number"]{
 }
 .suggestedCourses{
     display: flex;
-    flex-direction: row!important;
+    flex-direction: row;
     flex-wrap: wrap;
     width: 100%;
     margin: 2%
-    /*     justify-content: center; */
 }
 .suggestedCourse{
     margin: 10px;
     box-shadow: 1px 1px 10px black;
     padding: 20px  20px;
     max-width: 250px;
-    height: 450px
+    height: 470px;
 }
 .suggestedCourse .courseTitle{
     margin: 0 0 30px 0;
@@ -973,10 +1066,13 @@ input[type="number"]{
     border-right: none;
 }
 .suggestedCourse .courseDesc{
-    /*     overflow: hidden; */
+    /*         overflow: hidden; */
+    height: 40px;
+    margin: 14px 0;
+
 }
 .suggestedCourse .courseDesc p{
-    -webkit-line-clamp: 5;
+    -webkit-line-clamp: 2;
     -webkit-box-orient: vertical;
     overflow: hidden;
     text-overflow: ellipsis;
@@ -989,3 +1085,235 @@ input[type="number"]{
 
 
 
+
+
+
+
+
+
+
+
+/* Profile Pages */
+.profileDiv {
+    width: 100%;
+    box-sizing: border-box;
+    min-height: 100vh;
+    font-family: "Poppins", sans-serif;
+    background: url("../imgs/profileBackground.jpeg") no-repeat 50% 20% / cover;
+}
+#ulMenuProfile {
+    list-style-type: none;
+    display: flex;
+    align-items: center;
+}
+/* Removes the underline of the profile menu elements. */
+.aOfProfile {
+    text-decoration: none;
+}
+/* Adds the header to the profile page.
+   That is the semi-transparent section from the top to the profile content elements.
+ */
+/*.headerWrapper header {*/
+/*    width: 100%;*/
+/*    background: rgba(11, 11, 33, 0.5) no-repeat 50% 20% / cover;*/
+/*    min-height: calc(100px + 15vw);*/
+/*    box-shadow: 1px 3px 12px rgba(0, 0, 0, 0.3); !* Adds some shadow. *!*/
+/*}*/
+/* Defines the characteristics of the left column - the general info of the user. */
+.headerWrapper .columnsContainer .leftColumn {
+    padding: 25px 20px;
+    text-align: center;
+    max-width: 350px;
+    position: relative;
+    margin: 0 auto;
+}
+/* Defines the position of the profile's avatar. */
+.headerWrapper .columnsContainer .leftColumn .profileAvatar {
+    position: absolute;
+    top: -60px;
+    left: 50%;
+    transform: translatex(-50%);
+}
+/* Defines the all the properties of the profile's avatar image itself. */
+.headerWrapper .columnsContainer .leftColumn .profileAvatar img {
+    width: 120px;
+    height: 120px;
+    object-fit: cover;
+    border-radius: 50%;
+    display: block;
+    box-shadow: 1px 3px 12px rgba(0, 0, 0, 0.18); /* Adds some shadow. */
+    /* Adds a circular border to the avatar image. */
+    background: azure;
+    padding: 5px;
+}
+.headerWrapper .columnsContainer .leftColumn h1 {
+    color: azure;
+    margin-top: 60px;
+    font-weight: 600;
+    font-size: 22px;
+    margin-bottom: 15px;
+}
+.headerWrapper .columnsContainer .leftColumn p {
+    font-size: 1.2rem;
+    color: azure;
+    margin: 0;
+}
+.headerWrapper .columnsContainer .rightColumn nav {
+    display: flex;
+    align-items: center;
+    padding: 30px 0;
+    justify-content: space-between;
+    flex-direction: column;
+}
+.headerWrapper .columnsContainer .rightColumn nav ul {
+    display: flex;
+    gap: 20px;
+    flex-direction: column;
+}
+.headerWrapper .columnsContainer .rightColumn nav ul li a {
+    text-transform: uppercase;
+    color: azure;
+    display: block;
+    /*REMOVE LATER !!!!!!!!!!!!!!!!!
+    outline: 1px solid red;*/
+    padding: 10px;
+}
+.headerWrapper .columnsContainer .rightColumn nav ul li a:hover {
+    background-color: rgba(11, 11, 33, 0.5);
+    border-radius: 10px;
+}
+/* This part is responsible for this page to properly be displayed in desktop view. */
+@media (min-width: 868px) {
+    .headerWrapper .columnsContainer {
+        max-width: 1200px;
+        margin: 0 auto;
+        width: 90%;
+        justify-content: space-between;
+        display: grid;
+        grid-template-columns: 1fr 2fr;
+        gap: 50px;
+    }
+    .headerWrapper .columnsContainer .leftColumn {
+        padding: 25px 0;
+    }
+    .headerWrapper .columnsContainer .rightColumn nav ul {
+        flex-direction: row;
+        gap: 30px;
+    }
+}
+/* Profile Pages End */
+
+/* Temp Grades Teacher */
+.scheduleDiv {
+    width: 100%;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    min-height: 100vh;
+    font-family: "Poppins", sans-serif;
+    background: url("../imgs/scheduleBackground.jpeg") no-repeat 50% 20% / cover;
+}
+#scheduleBody header {
+    font-size: xxx-large;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+#scheduleBody #fallSchedule table, #scheduleBody #fallSchedule th, #scheduleBody #fallSchedule td {
+    border-collapse: collapse;
+    border:2px solid rgb(16, 25, 49);
+    width: auto;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+#scheduleBody #winterSchedule table, #scheduleBody #winterSchedule th, #scheduleBody #winterSchedule td {
+    border-collapse: collapse;
+    border:2px solid rgb(106, 130, 187);
+    width: auto;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+#scheduleBody #fallSchedule th {
+    background-color: rgba(106, 130, 187, 1);
+}
+#scheduleBody #winterSchedule th {
+    background-color: rgba(16, 25, 49, 1);
+}
+#scheduleBody ul {
+    list-style-type: none;
+    margin-left: -35px;
+    align-items: center;
+}
+#scheduleBody h3 {
+    margin-top: 50px;
+}
+#scheduleBody h4 {
+    margin-bottom: -5px;
+}
+#fallSchedule {
+    color: rgb(16, 25, 49);
+}
+#winterSchedule {
+
+    color: rgb(106, 130, 187);
+}
+@media (min-width: 868px) {
+    #scheduleBody header {
+        text-align: center;
+    }
+    #scheduleContainers {
+        max-width: 1200px;
+        margin: 0 auto;
+        width: 90%;
+        justify-content: space-between;
+        display: grid;
+        grid-template-columns: 1fr 2fr;
+        gap: 50px;
+    }
+    #scheduleBody #winterSchedule table, #scheduleBody #winterSchedule th, #scheduleBody #winterSchedule td {
+        border:2px solid rgb(16, 25, 49);
+    }
+    #scheduleBody #winterSchedule th {
+        background-color: rgba(106, 130, 187, 1);
+    }
+    #winterSchedule {
+        color: rgb(16, 25, 49);
+    }
+}
+/* Temp Grades Teacher End */
+
+
+/* Student Grades Teacher */
+.ReportTitle{
+    margin-top: 25px;
+    margin-left: 25%;
+    margin-right: 20px;
+    text-align: center;
+    border-style: outset;
+    border-radius: 10px;
+    border-width: medium;
+    box-shadow: 1px 1px 10px black;
+    font-size: 20px;
+}
+table.a {
+    padding-top: 5px;
+    padding-bottom: 5px;
+    table-layout: auto;
+    width: 100%;
+}
+.reportTotal{
+    margin-top: 25px;
+    margin-left: 25%;
+    margin-bottom: 5px;
+    margin-right: 20px;
+    text-align: left;
+    border-style: outset;
+    border-radius: 10px;
+    border-width: medium;
+    box-shadow: 1px 1px 10px black;
+    font-size: 20px;
+}
+.reportTotaltext{
+    margin-left: 10px;
+    font-size: 20px;
+}
+/* Student Grades Teacher End */
