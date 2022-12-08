@@ -116,4 +116,11 @@ class UserAccounts{
             array_push($this->errorArr, Constants::$passwordLength);
         }
     }
+
+    public function getUserInfo($username){
+        $query = $this->conn->prepare("SELECT * FROM users WHERE username=:username;");
+        $query->bindValue(":username", $username);
+        $query->execute();
+        return $query->fetch();
+    }
 }
