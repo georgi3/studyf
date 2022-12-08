@@ -1,57 +1,14 @@
 <?php
-include 'partials/base.php';
-include_once 'partials/authCheck.php';
+include 'partials/sideMenuStudentDashboard.php';
+//$existingCourses = new ExistingCourses($connection);
 
-protectStudentProperty();
-startblock('main');
+startblock('dashboardMain');
 ?>
-<div class="dashboard">
-    <div class="side-menu">
-        <div class="content">
-            <div class="chosen-course">
-                <h6>SOEN 287 Q 2222</h6>
-                <div class="course">
-                    <a href=""><span>Participants</span></a>
-                </div>
-                <div class="course">
-                    <a href=""><span>Assessments</span></a>
-                </div>
-                <div class="course">
-                    <a href=""><span>Grades</span></a>
-                </div>
-            </div>
-            <div class="courses">
-                <h6>My Courses</h6>
-                <div class="course">
-                    <a href=""><span>COMM 226 Q 2222</span></a>
-                </div>
-                <div class="course">
-                    <a href=""><span>COMM 217 Q 2222</span></a>
-                </div>
-                <div class="course active">
-                    <a  href=""><span>SOEN 287 Q 2222</span></a>
-                </div>
-                <div class="course">
-                    <a href=""><span>COMM 220 Q 2222</span></a>
-                </div>
-                <div class="course">
-                    <a href=""><span>COMP 248 Q 2222</span></a>
-                </div>
-                <div class="course">
-                    <a href=""><span>Course 6</span></a>
-                </div>
-                <div class="course">
-                    <a href=""><span>Course 7</span></a>
-                </div>
-                <div class="course">
-                    <a href=""><span>Course 8</span></a>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="main-section">
-        <div class="heading">
-            <h1>SOEN 287 Q 2222</h1>
+<!--        <div class="dashboard">         inherited from side menu partial    -->
+<div class="main-section">
+    <?php if (!isset($_GET['courseCode'])): ?>
+        <div class="emptyHeading">
+            <h1 id='courseTitle'>Select the course you would like to edit</h1>
             <ul class="breadcrumb">
                 <li class="breadcrumb-item">
                     <a href="">Home</a>
@@ -59,69 +16,87 @@ startblock('main');
                 <li class="breadcrumb-item">
                     &nbsp;/ My courses /&nbsp;
                 </li>
+            </ul>
+        </div>
+    <?php else : ?>
+        <div class="heading">
+            <?php
+//            echo "<input type='hidden' value='{$currentCourseCode}' id='courseCodeInput'>";
+            echo "<h1 id='courseTitle'>{$currentCourseTitle}</h1>";
+            ?>
+            <ul class="breadcrumb">
                 <li class="breadcrumb-item">
-                    <a href="">SOEN-287-2222-Q</a>
+                    <a href="/soen_proj/studentDashboard.php">Home</a>
+                </li>
+                <li class="breadcrumb-item">
+                    &nbsp;/ My courses /&nbsp;
+                </li>
+                <li class="breadcrumb-item">
+                    <?php
+                    echo "<a href='/soen_proj/studentDashboard.php?courseCode={$currentCourseCode}'>{$currentCourseTitle}</a>"
+                    ?>
                 </li>
             </ul>
             <h2>Description</h2>
-            <p>
-                Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum
-                has been the industry's standard du
-                mmy text ever since the 1500s, when an unknown printer took a galley of t
-                ype and scrambled it to make a type specimen book. It has survived no
-                t only five centuries, but also the leap into electronic typesetting, remaining essentially
-                unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem
-                Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions
-                of Lorem Ipsum.
-            </p>
+            <?php
+            if (isset($arrayCourseData['courseDesc'])){
+                echo "<div class='custom-textarea studentDashboard' id='courseDescription'>", $arrayCourseData['courseDesc'], "</div>";
+            } else{
+                echo "<div class='custom-textarea studentDashboard' id='courseDescription'>Your teacher has not created content for this section yet.</div>";
+            }
+            ?>
         </div>
         <div class="course-content">
-            <h1>SOEN 287 Q 2222 Content</h1>
-            <div class="section">
-                <h1>4 September - 10 September</h1>
-                <p>
-                    Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum
-                    has been the industry's standard du
-                    mmy text ever since the 1500s,
-                </p>
-            </div>
-            <div class="section">
-                <h1>11 September - 17 September</h1>
-            </div>
-            <div class="section">
-                <h1>18 September - 24 September</h1>
-                <p>
-                    Lorem Ipsum. It was popularised in the 1960s with the release of Letraset sheets containing Lorem
-                    Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions
-                    of Lorem Ipsum.
-                </p>
-            </div>
-            <div class="section">
-                <h1>25 September - 1 October</h1>
-            </div>
-            <div class="section">
-                <h1>2 October - 8 October</h1>
-            </div>
-            <div class="section">
-                <h1>9 October - 15 October</h1>
-                <p>
-                    Lorem Ipsum. It was popularised in the 1960s with the release of Letraset sheets containing Lorem
-                    Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions
-                    of Lorem Ipsum.
-                </p>
-            </div>
-            <div class="section">
-                <h1>16 October - 22 October</h1>
-            </div>
-            <div class="section">
-                <h1>23 October - 29 October</h1>
-            </div>
-            <div class="section">
-                <h1>30 October - 5 November</h1>
-            </div>
+            <?php
+            if (isset($arrayCourseData['courseContent'])){
+                $sectionContent = $arrayCourseData['courseContent'];
+                $i = 0;
+                foreach ($sectionContent as $section){
+                    echo "<div class='section' id='contentSection{$i}'>";
+                    if (isset($section['sectionTitle'])){
+                        echo "<h1 class='titleInput studentDashboard' id='titleInputID{$i}'>{$section['sectionTitle']}</h1>";
+                    } else{
+                        echo "<h1 class='titleInput studentDashboard' id='titleInputID{$i}'>Your teacher has not created content for this section yet.</h1>";
+                    }
+                    if (isset($section['sectionText'])){
+                        echo "<div class='custom-textarea studentDashboard' id='textInputID{$i}'>{$section['sectionText']}</div>";
+                    } else{
+                        echo "<div class='custom-textarea studentDashboard' id='textInputID{$i}'>Your teacher has not created content for this section yet.</div>";
+                    }
+                    echo "<div class='sectionLinksArea' id='sectionLinkArea{$i}'>";
+                    echo "<div class='sectionLink studentDashboard'>";
+                    if (isset($section['sectionLinkHT']) && isset($section['sectionLinkURL'])){
+                        echo "<a href='{$section['sectionLinkURL']}' class='linkInput' id='linkInputURL{$i}'>{$section['sectionLinkHT']}</a>";
+                    } else{
+//                        echo "<input type='text' placeholder='Link Text..' class='linkInput studentDashboard' id='linkInputHT{$i}'>";
+//                        echo "<input type='url' placeholder='https://example.com' class='linkInput studentDashboard' id='linkInputURL{$i}'>";
+                    }
+                    echo "</div>";
+                    echo "</div>";
+                    echo "<div class='sectionFileArea'>";
+//                    echo "<label for='fileInputID{$i}' class='custom-file-upload'>Upload File</label>";
+//                    echo "<input type='file' id='fileInputID{$i}' name='' onchange='displaySelectedFileName(this);' multiple/>";
+                    echo "</div>";
+                    echo "</div>";
+                    $i++;
+                }
+            } else{
+                echo "<div class='section' id='contentSection0'>
+                            <h1 class='titleInput studentDashboard' id='titleInputID0'>Your teacher has not created content for this section yet.</h1>
+                            <div class='custom-textarea studentDashboard' id='textInputID0'>Your teacher has not created content for this section yet.</div>
+                            <div class='sectionLinksArea' id='sectionLinkArea0'>
+                                <div class='sectionLink'>
+                                </div>
+                            </div>   
+                            <div class='sectionFileArea'>";
+echo                    "</div>
+                      </div>";
+            }
+            ?>
         </div>
-    </div>
+    <?php endif;?>
 </div>
+<!--                </div>      END OF div.dashboard      -->
 <?php
 endblock();
 ?>
