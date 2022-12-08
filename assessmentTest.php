@@ -17,15 +17,15 @@ $filePath = "/Applications/XAMPP/xamppfiles/htdocs/soen_proj/data/assessment{$as
 $openedFile = file_get_contents($filePath);
 $arrayAssessmentData = json_decode($openedFile, true);
 
-if (isset($_POST['submitTest'])){
-    header("Location: /soen_proj/studentAssessments.php?courseCode={$courseCode}");
-}
+//if (isset($_POST['submitTest'])){
+//    header("Location: /soen_proj/studentAssessments.php?courseCode={$courseCode}");
+//}
 
 startblock('main');
 ?>
 <div class="assessmentTemplate">
     <?php
-    echo "<form method='POST' onsubmit='submittedAssessment(); redirect();'>";
+    echo "<form method='POST' onsubmit='event.preventDefault(); submittedAssessment();'>";
     ?>
         <div class="templateContent">
             <div class="totalMarks">
