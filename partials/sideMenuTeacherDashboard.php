@@ -72,6 +72,9 @@ startblock('main');
                 <div class="course">
                     <a href=""><span>Grades</span></a>
                 </div>
+                <div class="course">
+                    <a href="/soen_proj/teacherGradesPage.php"><span>Schedule</span></a>
+                </div>
             <?php endif;?>
         </div>
         <div class="courses">
